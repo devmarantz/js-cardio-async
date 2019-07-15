@@ -16,12 +16,27 @@ ex after running delete('user.json'):
 Errors should also be logged (preferably in a human-readable format)
 */
 
+function log(value) {
+  return fs.appendFile('log.txt', `\n${value} ${Date.now()}\n`);
+}
+
 /**
  * Logs the value of object[key]
  * @param {string} file
  * @param {string} key
  */
-function get(file, key) {}
+function get(file, key) {
+  // 1. Read File
+  // 2. Handle Promise → Data
+  return fs.readFile(file, 'utf-8').then(data => {
+    // 3. Parse data from string → JSON
+    const parsed = JSON.parse(data);
+    // 4. Use the key to get the value at the object[key]
+    const value = parsed[key];
+    return log(value);
+  });
+  // 5. append the log file with the above value
+}
 
 /**
  * Sets the value of object[key] and rewrites object to file
@@ -102,6 +117,36 @@ function intersect(fileA, fileB) {}
  */
 function difference(fileA, fileB) {}
 
+function reset() {
+  const andrew = fs.writeFile(
+    './andrew.json',
+    JSON.stringify({
+      firstname: 'Andrew',
+      lastname: 'Maney',
+      email: 'amaney@talentpath.com',
+    })
+  );
+  const scott = fs.writeFile(
+    './scott.json',
+    JSON.stringify({
+      firstname: 'Scott',
+      lastname: 'Roberts',
+      email: 'sroberts@talentpath.com',
+      username: 'scoot',
+    })
+  );
+  const post = fs.writeFile(
+    './post.json',
+    JSON.stringify({
+      title: 'Async/Await lesson',
+      description: 'How to write asynchronous JavaScript',
+      date: 'July 15, 2019',
+    })
+  );
+  const log = fs.writeFile('./log.txt', '');
+  return Promise.all([andrew, scott, post, log]);
+}
+
 module.exports = {
   get,
   set,
@@ -112,4 +157,5 @@ module.exports = {
   union,
   intersect,
   difference,
+  reset,
 };
