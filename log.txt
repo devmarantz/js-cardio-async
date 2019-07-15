@@ -1,1 +1,5 @@
 Something is in the log...scootScott 1563230475617
+
+undefined 1563231088903
+
+ERROR hello invalid key on scott.json 1563231192760
