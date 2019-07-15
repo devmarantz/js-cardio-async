@@ -25,21 +25,21 @@ function log(value) {
  * @param {string} file
  * @param {string} key
  */
-function get(file, key) {
-  // 1. Read File
-  // 2. Handle Promise → Data
-  return fs
-    .readFile(file, 'utf-8')
-    .then(data => {
-      // 3. Parse data from string → JSON
-      const parsed = JSON.parse(data);
-      // 4. Use the key to get the value at the object[key]
-      const value = parsed[key];
-      if (!value) return log(`ERROR ${key} invalid key on ${file}`);
-      return log(value);
-    })
-    .catch(err => console.log(`ERROR No such file in the directory ${file}`));
-  // 5. append the log file with the above value
+async function get(file, key) {
+  try {
+    // 1. Read File
+    // 2. Handle Promise → Data
+    const data = await fs.readFile(file, 'utf-8');
+    // 3. Parse data from string → JSON
+    const parsed = JSON.parse(data);
+    // 4. Use the key to get the value at the object[key]
+    const value = parsed[key];
+    // 5. append the log file with the above value
+    if (!value) return log(`ERROR ${key} invalid on ${file}`);
+    return log(value);
+  } catch (err) {
+    return log(`ERROR no such file or directory ${file}`);
+  }
 }
 
 /**

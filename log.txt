@@ -1,5 +1,11 @@
-Something is in the log...scootScott 1563230475617
+Something is in the log...
 
-undefined 1563231088903
 
-ERROR hello invalid key on scott.json 1563231192760
+
+ERROR no such file or directory fake 1563231872294
+
+ERROR name invalid on scott.json 1563231882628
+
+ERROR no such file or directory scott.json  1563231896323
+
+sroberts@talentpath.com 1563231928044
