@@ -144,7 +144,18 @@ function mergeData() {}
  *  union('scott.json', 'andrew.json')
  *  // ['firstname', 'lastname', 'email', 'username']
  */
-function union(fileA, fileB) {}
+async function union(fileA, fileB) {
+  const props = [];
+  const dataA = await fs.readFile(fileA, 'utf-8');
+  const dataB = await fs.readFile(fileB, 'utf-8');
+  const parsedA = JSON.parse(dataA);
+  const parsedB = JSON.parse(dataB);
+  Object.keys(parsedA).forEach(key => props.push(key));
+  Object.keys(parsedB).forEach(key => {
+    if (!props.includes(key)) props.push(key);
+  });
+  return log(`[${props}]`);
+}
 
 /**
  * Takes two files and logs all the properties that both objects share

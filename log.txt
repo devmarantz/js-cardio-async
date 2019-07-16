@@ -1,24 +1,10 @@
 Something is in the log...
 
 
-ERROR File scott.json already exists 1563293874401
 
-ERROR File scott.json already exists 1563294278248
 
-ERROR no such file or directory devon.json 1563294418752
+firstname,lastname,email,username 1563295670850
 
-ERROR File scott.json already exists 1563294498366
+[firstname,lastname,email,username] 1563295745477
 
-ERROR no such file or directory devon.json 1563294507404
-
-ERROR File scott.json already exists 1563294691842
-
-devon.json created 1563294700139
-
-ERROR File devon.json already exists 1563294700140
-
-ERROR File scott.json already exists 1563294748726
-
-devon.json created 1563294761861
-
-devon.json created 1563294803824
+[firstname,lastname,email,username] 1563295768024
