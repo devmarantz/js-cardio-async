@@ -135,13 +135,24 @@ function deleteFile(file) {
 //     return log(`ERROR File ${file} already exists`);
 //   }
 // }
-// -------------------Promises--------------------------
-function createFile(file) {
-  return fs
-    .access(`./database/${file}`)
-    .then(() => log(`Cannot create file, '${file}' already exists`))
-    .catch(() => fs.writeFile(`./database/${file}`, '{}'))
-    .then(() => log(`Successfully created '${file}'`));
+// // -------------------Promises--------------------------
+// function createFile(file) {
+//   return fs
+//     .access(`./database/${file}`)
+//     .then(() => log(`Cannot create file, '${file}' already exists`))
+//     .catch(() => fs.writeFile(`./database/${file}`, '{}'))
+//     .then(() => log(`Successfully created '${file}'`));
+// }
+// ------------------ASYNC With Access-------------------
+async function createFile(file) {
+  try {
+    await fs.access(`./database/${file}`);
+    return log(`ERROR file or directory already exists: ${file}`);
+  } catch {
+    const emptyObject = {};
+    await fs.writeFile(`./database/${file}`, emptyObject);
+    return log(`${file}: created`);
+  }
 }
 
 /**
