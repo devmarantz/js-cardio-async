@@ -71,14 +71,14 @@ function set(file, key, value) {
   return (
     fs
       // reads
-      .readFile(file, 'utf8')
+      .readFile(`./database/${file}`, 'utf8')
       .then(data => {
         // parse
         const parsed = JSON.parse(data);
         // adds property the converts back to JSON format
         parsed[key] = value;
         const newObj = JSON.stringify(parsed);
-        fs.writeFile(file, newObj);
+        fs.writeFile(`./database/${file}`, newObj);
         return log('set', file, value);
       })
       .catch(err => log(`ERROR no such file or directory ${file}`))
@@ -125,14 +125,23 @@ function deleteFile(file) {
  * Gracefully errors if the file already exists.
  * @param {string} file JSON filename
  */
-async function createFile(file) {
-  const checkData = await fs.readFile(`./database/${file}`, 'utf-8').catch(err => {
-    fs.writeFile(file, '{}', 'utf-8');
-    return log(`${file} created`);
-  });
-  if (checkData) {
-    return log(`ERROR File ${file} already exists`);
-  }
+// // ------------------ASYNC-------------------------------
+// async function createFile(file) {
+//   const checkData = await fs.readFile(`./database/${file}`, 'utf-8').catch(err => {
+//     fs.writeFile(file, '{}', 'utf-8');
+//     return log(`${file} created`);
+//   });
+//   if (checkData) {
+//     return log(`ERROR File ${file} already exists`);
+//   }
+// }
+// -------------------Promises--------------------------
+function createFile(file) {
+  return fs
+    .access(`./database/${file}`)
+    .then(() => log(`Cannot create file, '${file}' already exists`))
+    .catch(() => fs.writeFile(`./database/${file}`, '{}'))
+    .then(() => log(`Successfully created '${file}'`));
 }
 
 /**
