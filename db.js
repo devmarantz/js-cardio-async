@@ -78,10 +78,9 @@ async function remove(file, key) {
     const data = await fs.readFile(file, 'utf-8');
     // 3. Parse data from string → JSON
     const parsed = JSON.parse(data);
-    // 4. Check if the key exists
-    // 5. append the log file with the above value
+    // 4. Delete key
     delete parsed[key];
-    // 6. Write file with new value
+    // 5. Write file with new value
     await fs.writeFile(file, JSON.stringify(parsed), 'utf-8');
     return console.log(parsed);
   } catch (err) {
@@ -94,7 +93,13 @@ async function remove(file, key) {
  * Gracefully errors if the file does not exist.
  * @param {string} file
  */
-function deleteFile(file) {}
+function deleteFile(file) {
+  try {
+    return fs.unlink(file);
+  } catch (err) {
+    return log(`ERROR no such file or directory ${file}`);
+  }
+}
 
 /**
  * Creates file with an empty object inside.
