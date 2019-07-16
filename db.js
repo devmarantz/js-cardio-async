@@ -171,9 +171,6 @@ async function intersect(fileA, fileB) {
   const dataB = await fs.readFile(fileB, 'utf-8');
   const parsedA = JSON.parse(dataA);
   const parsedB = JSON.parse(dataB);
-  // Object.keys(parsedA).forEach(key => {
-  //   if (!props.includes(key) && Object.keys(parsedB).includes(key)) props.push(key);
-  // });
   Object.keys(parsedA).forEach(key => {
     if (Object.keys(parsedB).includes(key)) props.push(key);
   });
@@ -191,7 +188,20 @@ async function intersect(fileA, fileB) {
  *    difference('scott.json', 'andrew.json')
  *    // ['username']
  */
-function difference(fileA, fileB) {}
+async function difference(fileA, fileB) {
+  const props = [];
+  const dataA = await fs.readFile(fileA, 'utf-8');
+  const dataB = await fs.readFile(fileB, 'utf-8');
+  const parsedA = JSON.parse(dataA);
+  const parsedB = JSON.parse(dataB);
+  Object.keys(parsedA).forEach(key => {
+    if (!Object.keys(parsedB).includes(key)) props.push(key);
+  });
+  Object.keys(parsedB).forEach(key => {
+    if (!Object.keys(parsedA).includes(key)) props.push(key);
+  });
+  return log(`[${props}]`);
+}
 
 function reset() {
   const andrew = fs.writeFile(
