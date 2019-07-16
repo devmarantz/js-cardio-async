@@ -106,7 +106,15 @@ function deleteFile(file) {
  * Gracefully errors if the file already exists.
  * @param {string} file JSON filename
  */
-function createFile(file) {}
+async function createFile(file) {
+  const checkData = await fs.readFile(file, 'utf-8').catch(err => {
+    fs.writeFile(file, '{}', 'utf-8');
+    return log(`${file} created`);
+  });
+  if (checkData) {
+    return log(`ERROR File ${file} already exists`);
+  }
+}
 
 /**
  * Merges all data into a mega object and logs it.

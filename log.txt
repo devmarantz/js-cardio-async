@@ -1,19 +1,24 @@
 Something is in the log...
 
 
+ERROR File scott.json already exists 1563293874401
 
-ERROR no such file or directory fake 1563231872294
+ERROR File scott.json already exists 1563294278248
 
-ERROR name invalid on scott.json 1563231882628
+ERROR no such file or directory devon.json 1563294418752
 
-ERROR no such file or directory scott.json  1563231896323
+ERROR File scott.json already exists 1563294498366
 
-sroberts@talentpath.com 1563231928044
+ERROR no such file or directory devon.json 1563294507404
 
-skeet 1563291179406
+ERROR File scott.json already exists 1563294691842
 
-skeet 1563291203217
+devon.json created 1563294700139
 
-[object Object] 1563291212234
+ERROR File devon.json already exists 1563294700140
 
-ERROR no such file or directory undefined 1563292125676
+ERROR File scott.json already exists 1563294748726
+
+devon.json created 1563294761861
+
+devon.json created 1563294803824
