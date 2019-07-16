@@ -48,7 +48,23 @@ async function get(file, key) {
  * @param {string} key
  * @param {string} value
  */
-function set(file, key, value) {}
+async function set(file, key, value) {
+  try {
+    // 1. Read File
+    // 2. Handle Promise → Data
+    const data = await fs.readFile(file, 'utf-8');
+    // 3. Parse data from string → JSON
+    const parsed = JSON.parse(data);
+    // 4. Check if the key exists
+    // 5. append the log file with the above value
+    parsed[key] = value;
+    // 6. Write file with new value
+    await fs.writeFile(file, JSON.stringify(parsed), 'utf-8');
+    return console.log(parsed);
+  } catch (err) {
+    return log(`ERROR no such file or directory ${file}`);
+  }
+}
 
 /**
  * Deletes key from object and rewrites object to file
