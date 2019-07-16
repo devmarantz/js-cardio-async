@@ -29,7 +29,7 @@ async function get(file, key) {
   try {
     // 1. Read File
     // 2. Handle Promise → Data
-    const data = await fs.readFile(file, 'utf-8');
+    const data = await fs.readFile(`./database/${file}`, 'utf-8');
     // 3. Parse data from string → JSON
     const parsed = JSON.parse(data);
     // 4. Use the key to get the value at the object[key]
@@ -52,14 +52,14 @@ async function set(file, key, value) {
   try {
     // 1. Read File
     // 2. Handle Promise → Data
-    const data = await fs.readFile(file, 'utf-8');
+    const data = await fs.readFile(`./database/${file}`, 'utf-8');
     // 3. Parse data from string → JSON
     const parsed = JSON.parse(data);
     // 4. Check if the key exists
     // 5. append the log file with the above value
     parsed[key] = value;
     // 6. Write file with new value
-    await fs.writeFile(file, JSON.stringify(parsed), 'utf-8');
+    await fs.writeFile(`./database/${file}`, JSON.stringify(parsed), 'utf-8');
     return console.log(parsed);
   } catch (err) {
     return log(`ERROR no such file or directory ${file}`);
@@ -75,13 +75,13 @@ async function remove(file, key) {
   try {
     // 1. Read File
     // 2. Handle Promise → Data
-    const data = await fs.readFile(file, 'utf-8');
+    const data = await fs.readFile(`./database/${file}`, 'utf-8');
     // 3. Parse data from string → JSON
     const parsed = JSON.parse(data);
     // 4. Delete key
     delete parsed[key];
     // 5. Write file with new value
-    await fs.writeFile(file, JSON.stringify(parsed), 'utf-8');
+    await fs.writeFile(`./database/${file}`, JSON.stringify(parsed), 'utf-8');
     return console.log(parsed);
   } catch (err) {
     return log(`ERROR no such file or directory ${file}`);
@@ -95,7 +95,7 @@ async function remove(file, key) {
  */
 function deleteFile(file) {
   try {
-    return fs.unlink(file);
+    return fs.unlink(`./database/${file}`);
   } catch (err) {
     return log(`ERROR no such file or directory ${file}`);
   }
@@ -107,7 +107,7 @@ function deleteFile(file) {
  * @param {string} file JSON filename
  */
 async function createFile(file) {
-  const checkData = await fs.readFile(file, 'utf-8').catch(err => {
+  const checkData = await fs.readFile(`./database/${file}`, 'utf-8').catch(err => {
     fs.writeFile(file, '{}', 'utf-8');
     return log(`${file} created`);
   });
@@ -134,7 +134,13 @@ async function createFile(file) {
  *    }
  * }
  */
-function mergeData() {}
+async function mergeData() {
+  await fs.readdir('./', (err, files) => {
+    files.forEach(file => {
+      console.log(file);
+    });
+  });
+}
 
 /**
  * Takes two files and logs all the properties as a list without duplicates
@@ -146,8 +152,8 @@ function mergeData() {}
  */
 async function union(fileA, fileB) {
   const props = [];
-  const dataA = await fs.readFile(fileA, 'utf-8');
-  const dataB = await fs.readFile(fileB, 'utf-8');
+  const dataA = await fs.readFile(`./database/${fileA}`, 'utf-8');
+  const dataB = await fs.readFile(`./database/${fileB}`, 'utf-8');
   const parsedA = JSON.parse(dataA);
   const parsedB = JSON.parse(dataB);
   Object.keys(parsedA).forEach(key => props.push(key));
@@ -167,8 +173,8 @@ async function union(fileA, fileB) {
  */
 async function intersect(fileA, fileB) {
   const props = [];
-  const dataA = await fs.readFile(fileA, 'utf-8');
-  const dataB = await fs.readFile(fileB, 'utf-8');
+  const dataA = await fs.readFile(`./database/${fileA}`, 'utf-8');
+  const dataB = await fs.readFile(`./database/${fileB}`, 'utf-8');
   const parsedA = JSON.parse(dataA);
   const parsedB = JSON.parse(dataB);
   Object.keys(parsedA).forEach(key => {
@@ -190,8 +196,8 @@ async function intersect(fileA, fileB) {
  */
 async function difference(fileA, fileB) {
   const props = [];
-  const dataA = await fs.readFile(fileA, 'utf-8');
-  const dataB = await fs.readFile(fileB, 'utf-8');
+  const dataA = await fs.readFile(`./database/${fileA}`, 'utf-8');
+  const dataB = await fs.readFile(`./database/${fileB}`, 'utf-8');
   const parsedA = JSON.parse(dataA);
   const parsedB = JSON.parse(dataB);
   Object.keys(parsedA).forEach(key => {
