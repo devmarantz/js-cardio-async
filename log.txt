@@ -30,3 +30,11 @@ ERROR no such file or directory undefined 1563301235403
 ERROR File scott.json already exists 1563301288919
 
 ERROR File scott.json already exists 1563301461781
+
+ERROR Error: ENOENT: no such file or directory, open 'C:\Users\DMarantz\Desktop\TalentPath\track6\js-cardio-async\andrew.json' 1563305361873
+
+ERROR Error: ENOENT: no such file or directory, open 'C:\Users\DMarantz\Desktop\TalentPath\track6\js-cardio-async\andrew.json' 1563305461577
+
+ERROR Error: ENOENT: no such file or directory, open 'C:\Users\DMarantz\Desktop\TalentPath\track6\js-cardio-async\andrew.json' 1563305515529
+
+{"andrew":{"firstname":"Andrew","lastname":"Maney","email":"amaney@talentpath.com"},"post":{"title":"Async/Await lesson","description":"How to write asynchronous JavaScript","date":"July 15, 2019"},"scott":{"firstname":"Scott","lastname":"Roberts","email":"sroberts@talentpath.com","username":"Scoot"}} 1563305569762

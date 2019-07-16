@@ -173,25 +173,40 @@ async function createFile(file) {
  *    }
  * }
  */
-async function mergeData() {
-  let megaData = {};
-  const files = [];
-  const fileData = [];
-  const data = await fs.readdir('./database/');
-  // creates keys for files
-  data.forEach(file => {
-    megaData[file] = {};
-    files.push(file);
-  });
-  files.forEach(function(file) {
-    fs.readFile(`./database/${file}/`, 'utf-8').then(data => {
-      fileData.push(data);
-    });
-  });
+// -----------------My Attempt-------------------
+// async function mergeData() {
+//   let megaData = {};
+//   const files = [];
+//   const fileData = [];
+//   const data = await fs.readdir('./database/');
+//   // creates keys for files
+//   data.forEach(file => {
+//     megaData[file] = {};
+//     files.push(file);
+//   });
+//   files.forEach(function(file) {
+//     fs.readFile(`./database/${file}/`, 'utf-8').then(data => {
+//       fileData.push(data);
+//     });
+//   });
 
-  // console.log(`Mega Data: ${megaData}\n`);
-  console.log(fileData);
-  return console.log(megaData);
+//   // console.log(`Mega Data: ${megaData}\n`);
+//   console.log(fileData);
+//   return console.log(megaData);
+// }
+// --------------------ASYNC EM-------------------
+async function mergeData() {
+  try {
+    const megaObj = {};
+    const files = await fs.readdir(`./database/`);
+    for await (const file of files) {
+      const trimmedFileName = file.slice(0, file.indexOf('.'));
+      megaObj[trimmedFileName] = JSON.parse(await fs.readFile(`./database/${file}`, 'utf8'));
+    }
+    return log(JSON.stringify(megaObj));
+  } catch (err) {
+    return log(`ERROR ${err}`);
+  }
 }
 
 /**
