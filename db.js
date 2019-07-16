@@ -165,7 +165,23 @@ async function union(fileA, fileB) {
  *    intersect('scott.json', 'andrew.json')
  *    // ['firstname', 'lastname', 'email']
  */
-function intersect(fileA, fileB) {}
+async function intersect(fileA, fileB) {
+  const props = [];
+  const dataA = await fs.readFile(fileA, 'utf-8');
+  const dataB = await fs.readFile(fileB, 'utf-8');
+  const parsedA = JSON.parse(dataA);
+  const parsedB = JSON.parse(dataB);
+  // Object.keys(parsedA).forEach(key => {
+  //   if (!props.includes(key) && Object.keys(parsedB).includes(key)) props.push(key);
+  // });
+  Object.keys(parsedA).forEach(key => {
+    if (Object.keys(parsedB).includes(key)) props.push(key);
+  });
+  Object.keys(parsedB).forEach(key => {
+    if (!props.includes(key)) props.push(key);
+  });
+  return log(`[${props}]`);
+}
 
 /**
  * Takes two files and logs all properties that are different between the two objects
