@@ -16,3 +16,17 @@ firstname,lastname,email,username 1563295670850
 ERROR blah invalid on scott.json 1563297479935
 
 Scoot 1563297490566
+
+ERROR undefined invalid on andrew.json 1563298798017
+
+ERROR undefined invalid on scott.json 1563298815002
+
+devon.json created 1563301209232
+
+ERROR no such file or directory undefined 1563301233272
+
+ERROR no such file or directory undefined 1563301235403
+
+ERROR File scott.json already exists 1563301288919
+
+ERROR File scott.json already exists 1563301461781

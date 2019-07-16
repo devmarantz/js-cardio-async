@@ -48,22 +48,41 @@ async function get(file, key) {
  * @param {string} key
  * @param {string} value
  */
-async function set(file, key, value) {
-  try {
-    // 1. Read File
-    // 2. Handle Promise → Data
-    const data = await fs.readFile(`./database/${file}`, 'utf-8');
-    // 3. Parse data from string → JSON
-    const parsed = JSON.parse(data);
-    // 4. Check if the key exists
-    // 5. append the log file with the above value
-    parsed[key] = value;
-    // 6. Write file with new value
-    await fs.writeFile(`./database/${file}`, JSON.stringify(parsed), 'utf-8');
-    return console.log(parsed);
-  } catch (err) {
-    return log(`ERROR no such file or directory ${file}`);
-  }
+// // ----------------------ASYNC-------------------------------
+// async function set(file, key, value) {
+//   try {
+//     // 1. Read File
+//     // 2. Handle Promise → Data
+//     const data = await fs.readFile(`./database/${file}`, 'utf-8');
+//     // 3. Parse data from string → JSON
+//     const parsed = JSON.parse(data);
+//     // 4. Check if the key exists
+//     // 5. append the log file with the above value
+//     parsed[key] = value;
+//     // 6. Write file with new value
+//     await fs.writeFile(`./database/${file}`, JSON.stringify(parsed), 'utf-8');
+//     return console.log(parsed);
+//   } catch (err) {
+//     return log(`ERROR no such file or directory ${file}`);
+//   }
+// }
+// --------------------------Promises--------------------------
+function set(file, key, value) {
+  return (
+    fs
+      // reads
+      .readFile(file, 'utf8')
+      .then(data => {
+        // parse
+        const parsed = JSON.parse(data);
+        // adds property the converts back to JSON format
+        parsed[key] = value;
+        const newObj = JSON.stringify(parsed);
+        fs.writeFile(file, newObj);
+        return log('set', file, value);
+      })
+      .catch(err => log(`ERROR no such file or directory ${file}`))
+  );
 }
 
 /**
@@ -135,11 +154,24 @@ async function createFile(file) {
  * }
  */
 async function mergeData() {
-  await fs.readdir('./', (err, files) => {
-    files.forEach(file => {
-      console.log(file);
+  let megaData = {};
+  const files = [];
+  const fileData = [];
+  const data = await fs.readdir('./database/');
+  // creates keys for files
+  data.forEach(file => {
+    megaData[file] = {};
+    files.push(file);
+  });
+  files.forEach(function(file) {
+    fs.readFile(`./database/${file}/`, 'utf-8').then(data => {
+      fileData.push(data);
     });
   });
+
+  // console.log(`Mega Data: ${megaData}\n`);
+  console.log(fileData);
+  return console.log(megaData);
 }
 
 /**
