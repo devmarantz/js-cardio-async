@@ -71,7 +71,23 @@ async function set(file, key, value) {
  * @param {string} file
  * @param {string} key
  */
-function remove(file, key) {}
+async function remove(file, key) {
+  try {
+    // 1. Read File
+    // 2. Handle Promise → Data
+    const data = await fs.readFile(file, 'utf-8');
+    // 3. Parse data from string → JSON
+    const parsed = JSON.parse(data);
+    // 4. Check if the key exists
+    // 5. append the log file with the above value
+    delete parsed[key];
+    // 6. Write file with new value
+    await fs.writeFile(file, JSON.stringify(parsed), 'utf-8');
+    return console.log(parsed);
+  } catch (err) {
+    return log(`ERROR no such file or directory ${file}`);
+  }
+}
 
 /**
  * Deletes file.
