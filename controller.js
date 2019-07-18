@@ -112,6 +112,22 @@ exports.postWrite = (req, res, pathname) => {
   });
 };
 
+exports.getMergeData = (req, res) => {
+  db.mergeData()
+    .then(body => {
+      res.writeHead(200, {
+        'Content-Type': 'application/json',
+      });
+      res.end(body);
+    })
+    .catch(err => {
+      res.writeHead(400, {
+        'Content-Type': 'text/html',
+      });
+      res.end(err.message);
+    });
+};
+
 exports.getFile = (req, res, pathname) => {
   // event emitted when the request has received all of the data
   // req.on('end', async () => {
@@ -129,7 +145,6 @@ exports.getFile = (req, res, pathname) => {
       });
       res.end(err.message);
     });
-  // });
 };
 
 exports.deleteFile = (req, res, pathname) => {

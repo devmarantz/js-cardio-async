@@ -242,3 +242,5 @@ devon.json: created 1563487054505
 ERROR file or directory already exists: devon.json 1563487056746
 
 devon.json: created 1563487129967
+
+{"andrew":{"lastname":"Maney","email":"amaney@talentpath.com"},"dev":{"firstname":"Devon","lastname":"Marantz","glasses":"sometimes"},"post":{"title":"Async/Await lesson","description":"How to write asynchronous JavaScript","date":"July 15, 2019"},"scott":{"firstname":"Scott","lastname":"Roberts","email":"sroberts@talentpath.com","username":"Scoot"}} 1563487514372

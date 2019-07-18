@@ -10,6 +10,7 @@ const {
   get,
   deleteRemove,
   deleteFile,
+  getMergeData,
 } = require('./controller'); //import our controller
 
 const handleRoutes = (req, res) => {
@@ -30,43 +31,24 @@ const handleRoutes = (req, res) => {
     return patchSet(req, res, query);
   }
 
-  // GET
+  // GET Value with Key
   if (pathname === '/get' && req.method === 'GET') {
     return get(req, res, query);
   }
 
-  // REMOVE
+  // REMOVE a value with key
   if (pathname === '/remove' && req.method === 'DELETE') {
     return deleteRemove(req, res, query);
   }
 
-  // DELETEFILE
+  // DELETE a file
   if (pathname.startsWith('/delete') && req.method === 'PATCH') {
     return deleteFile(req, res, pathname);
   }
 
-  // CREATEFILE
-  if (pathname === '/createFile' && req.method === 'POST') {
-    return db
-      .createFile(query.file)
-      .then(() => {
-        res.end('file created');
-      })
-      .catch(err => {
-        // TODO:
-      });
-  }
-
   // MERGEDATA
   if (pathname === '/mergeData' && req.method === 'GET') {
-    return db
-      .mergeData()
-      .then(() => {
-        res.end('file merged');
-      })
-      .catch(err => {
-        // TODO:
-      });
+    return getMergeData(req, res);
   }
 
   // UNION

@@ -230,9 +230,10 @@ async function mergeData() {
       const trimmedFileName = file.slice(0, file.indexOf('.'));
       megaObj[trimmedFileName] = JSON.parse(await fs.readFile(`./database/${file}`, 'utf8'));
     }
-    return log(JSON.stringify(megaObj));
+    log(JSON.stringify(megaObj));
+    return JSON.stringify(megaObj);
   } catch (err) {
-    return log(`ERROR ${err}`);
+    return log(`ERROR ${err}`, err);
   }
 }
 
