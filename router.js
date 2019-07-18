@@ -11,6 +11,7 @@ const {
   deleteRemove,
   deleteFile,
   getMergeData,
+  getUnion,
 } = require('./controller'); //import our controller
 
 const handleRoutes = (req, res) => {
@@ -53,14 +54,7 @@ const handleRoutes = (req, res) => {
 
   // UNION
   if (pathname === '/union' && req.method === 'GET') {
-    return db
-      .union(query.fileA, query.fileB)
-      .then(() => {
-        res.end('union established');
-      })
-      .catch(err => {
-        // TODO:
-      });
+    return getUnion(req, res, query);
   }
 
   // INTERSECT

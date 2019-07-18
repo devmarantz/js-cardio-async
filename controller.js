@@ -94,6 +94,26 @@ exports.deleteRemove = (req, res, { file, key }) => {
     });
 };
 
+exports.getUnion = (req, res, { fileA, fileB }) => {
+  // check if the file, key, and value are all defined
+  if (!fileA || !fileB) {
+    res.writeHead(400);
+    res.end('fileA and fileB are required');
+  }
+  return db
+    .union(fileA, fileB)
+    .then(props => {
+      res.writeHead(202);
+      res.end(props);
+    })
+    .catch(err => {
+      res.writeHead(400, {
+        'Content-Type': 'text/html',
+      });
+      res.end(err.message);
+    });
+};
+
 exports.postWrite = (req, res, pathname) => {
   // 1. Get the body data from the request
   const data = [];

@@ -244,3 +244,21 @@ ERROR file or directory already exists: devon.json 1563487056746
 devon.json: created 1563487129967
 
 {"andrew":{"lastname":"Maney","email":"amaney@talentpath.com"},"dev":{"firstname":"Devon","lastname":"Marantz","glasses":"sometimes"},"post":{"title":"Async/Await lesson","description":"How to write asynchronous JavaScript","date":"July 15, 2019"},"scott":{"firstname":"Scott","lastname":"Roberts","email":"sroberts@talentpath.com","username":"Scoot"}} 1563487514372
+
+ERROR no such file or directory undefined or undefined 1563488492636
+
+[firstname,lastname,glasses,email] 1563488508089
+
+[firstname,lastname,glasses,email] 1563488516749
+
+[firstname,lastname,email,username] 1563488584631
+
+[firstname,lastname,email,username] 1563488590597
+
+[firstname,lastname,email,username] 1563488602320
+
+[firstname,lastname,email,username] 1563488604702
+
+[firstname,lastname,glasses,email] 1563488632922
+
+[firstname,lastname,glasses,email] 1563488653063
