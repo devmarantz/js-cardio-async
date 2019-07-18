@@ -16,8 +16,15 @@ ex after running delete('user.json'):
 Errors should also be logged (preferably in a human-readable format)
 */
 
-function log(value) {
-  return fs.appendFile('log.txt', `\n${value} ${Date.now()}\n`);
+/**
+ * logs action
+ * @param {string} file
+ * @param {Error} [err]
+ */
+async function log(value, err) {
+  await fs.appendFile('log.txt', `\n${value} ${Date.now()}\n`);
+  // Pass along (throw) error if it exists
+  if (err) throw err;
 }
 
 /**
@@ -79,9 +86,9 @@ function set(file, key, value) {
         parsed[key] = value;
         const newObj = JSON.stringify(parsed);
         fs.writeFile(`./database/${file}`, newObj);
-        return log('set', file, value);
+        return log(value);
       })
-      .catch(err => log(`ERROR no such file or directory ${file}`))
+      .catch(err => log(`ERROR no such file or directory ${file}`, err))
   );
 }
 

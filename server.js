@@ -1,36 +1,14 @@
-const http = require('http');
+const http = require('http'); // import HTTP node module
+const { handleRoutes } = require('./router'); //import our router
 
-const server = http.createServer();
+const server = http.createServer(); // Creates the server
 
 // Listens for the "request" event on or server
 // The event will be fired anytime some client makes a request
 // Take a callback with request and response
 // request is what the client sends to us
 // response is what we send back
-server.on('request', (req, res) => {
-  // check if request was a GET to '/' route
-  if (req.url === '/' && req.method === 'GET') {
-    // sets the status code and writes the header
-    res.writeHead(200, {
-      'My-custom-header': 'This is a great API',
-      'Another header': 'More meta data',
-    });
-    res.end('Welcome to my server!');
-    return;
-  }
+server.on('request', handleRoutes);
 
-  if (req.url === '/status' && req.method === 'GET') {
-    const status = {
-      up: true,
-      owner: 'Andrew Maney',
-      timestamp: Date.now(),
-    };
-    res.writeHead(200, {
-      'Content-Type': 'application/json',
-      'Another-Header': 'more things',
-    });
-    res.end(JSON.stringify(status));
-  }
-});
-
+// opens our server up on port 5000 for connections
 server.listen(5000, () => console.log('Server listening on port 5000'));
