@@ -43,9 +43,10 @@ async function get(file, key) {
     const value = parsed[key];
     // 5. append the log file with the above value
     if (!value) return log(`ERROR ${key} invalid on ${file}`);
-    return log(value);
+    log(value);
+    return value;
   } catch (err) {
-    return log(`ERROR no such file or directory ${file}`);
+    return log(`ERROR no such file or directory ${file}`, err);
   }
 }
 

@@ -1,6 +1,6 @@
 const url = require('url'); // import URL module
 const db = require('./db'); // import our database
-const { getHome, getStatus, patchSet, notFound, postWrite, getFile } = require('./controller'); //import our controller
+const { getHome, getStatus, patchSet, notFound, postWrite, getFile, get } = require('./controller'); //import our controller
 
 const handleRoutes = (req, res) => {
   const { pathname, query } = url.parse(req.url, true);
@@ -18,6 +18,11 @@ const handleRoutes = (req, res) => {
   // parse the url to an object
   if (pathname === '/set' && req.method === 'PATCH') {
     return patchSet(req, res, query);
+  }
+
+  // GET
+  if (pathname === '/get' && req.method === 'GET') {
+    return get(req, res, query);
   }
 
   // REMOVE

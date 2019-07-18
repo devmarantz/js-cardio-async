@@ -54,6 +54,26 @@ exports.patchSet = (req, res, { file, key, value }) => {
     });
 };
 
+exports.get = (req, res, { file, key }) => {
+  // check if the file, key, and value are all defined
+  if (!file || !key) {
+    res.writeHead(400);
+    res.end('File and Key queries are required');
+  }
+  // fire off the db set method
+  db.get(file, key)
+    .then(value => {
+      res.writeHead(200);
+      res.end(value);
+    })
+    .catch(err => {
+      res.writeHead(400, {
+        'Content-Type': 'text/html',
+      });
+      res.end(err.message);
+    });
+};
+
 exports.postWrite = (req, res, pathname) => {
   // 1. Get the body data from the request
   const data = [];
