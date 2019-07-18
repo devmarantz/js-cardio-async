@@ -38,3 +38,227 @@ ERROR Error: ENOENT: no such file or directory, open 'C:\Users\DMarantz\Desktop\
 ERROR Error: ENOENT: no such file or directory, open 'C:\Users\DMarantz\Desktop\TalentPath\track6\js-cardio-async\andrew.json' 1563305515529
 
 {"andrew":{"firstname":"Andrew","lastname":"Maney","email":"amaney@talentpath.com"},"post":{"title":"Async/Await lesson","description":"How to write asynchronous JavaScript","date":"July 15, 2019"},"scott":{"firstname":"Scott","lastname":"Roberts","email":"sroberts@talentpath.com","username":"Scoot"}} 1563305569762
+
+set 1563399524665
+
+set 1563399550312
+
+set 1563399578569
+
+set 1563464462403
+
+ERROR no such file or directory andrewww.json 1563464525107
+
+ERROR no such file or directory andrewww.json 1563464608178
+
+set 1563464670263
+
+set 1563464710583
+
+set 1563465326482
+
+ERROR no such file or directory andrewwww.json 1563465967008
+
+ERROR no such file or directory andrewwww.json 1563465999570
+
+set 1563466935389
+
+set 1563467169255
+
+set 1563467838168
+
+set 1563470045181
+
+set 1563470418718
+
+set 1563471906224
+
+ERROR no such file or directory andresdddsdw.json 1563472068899
+
+ERROR no such file or directory andresdddsdw.json 1563472537468
+
+ERROR no such file or directory undefined 1563472549038
+
+set 1563472557054
+
+ERROR no such file or directory andrew.json 1563472557056
+
+set 1563472641396
+
+ERROR no such file or directory andrew.json 1563472641405
+
+ERROR no such file or directory andreddw.json 1563472686394
+
+ERROR no such file or directory andreddw.json 1563472716371
+
+ERROR no such file or directory andreddw.json 1563472720612
+
+ERROR no such file or directory andreddw.json 1563472746846
+
+set 1563472758836
+
+ERROR no such file or directory andrew.json 1563472758845
+
+set 1563472770631
+
+ERROR no such file or directory andrew.json 1563472770635
+
+set 1563472774170
+
+ERROR no such file or directory andrew.json 1563472774173
+
+set 1563472838754
+
+ERROR no such file or directory andrew.json 1563472838758
+
+ERROR no such file or directory andrddew.json 1563472854091
+
+ERROR no such file or directory andrddew.json 1563472904703
+
+set 1563472914708
+
+ERROR no such file or directory andrew.json 1563472914712
+
+set 1563472939782
+
+ERROR no such file or directory andrew.json 1563472939787
+
+set 1563473098559
+
+ERROR no such file or directory andrew.json 1563473098565
+
+set 1563473112743
+
+ERROR no such file or directory andrew.json 1563473112746
+
+set 1563473234248
+
+ERROR no such file or directory andrew.json 1563473234256
+
+set 1563473262584
+
+ERROR no such file or directory andrew.json 1563473262587
+
+ERROR no such file or directory undefined 1563473277927
+
+ERROR no such file or directory andrewww.json 1563473283091
+
+set 1563473301370
+
+ERROR no such file or directory andrew.json 1563473301382
+
+set 1563473395923
+
+ERROR no such file or directory andrew.json 1563473395929
+
+ERROR no such file or directory andrewwww.json 1563473411514
+
+set 1563473419203
+
+ERROR no such file or directory andrew.json 1563473419204
+
+Andrew 1563473490350
+
+ERROR no such file or directory andrewwww.json 1563474044307
+
+Andrew 1563474052339
+
+ERROR no such file or directory andrewwww.json 1563474057027
+
+ERROR no such file or directory andrewwww.json 1563474088419
+
+ERROR no such file or directory andrewwww.json 1563474213764
+
+dev.json: created 1563477192857
+
+ERROR file or directory already exists: dev.json 1563477229433
+
+dev.json: created 1563477258096
+
+ERROR file or directory already exists: dev.json 1563477427221
+
+dev.json: created 1563477439998
+
+[object Object] 1563483879925
+
+{"firstname":"Devon","lastname":"Marantz","glasses":"sometimes"} 1563483889700
+
+{"firstname":"Devon","lastname":"Marantz","glasses":"sometimes"} 1563484543029
+
+{"firstname":"Devon","lastname":"Marantz","glasses":"sometimes"} 1563484564136
+
+[object Object] 1563484608980
+
+[object Object] 1563484645140
+
+[object Object] 1563484753098
+
+{"firstname":"Devon","lastname":"Marantz","glasses":"sometimes"} 1563484857499
+
+{"lastname":"Maney","email":"amaney@talentpath.com","firstname":"Andrew"} 1563484865781
+
+{"lastname":"Maney","email":"amaney@talentpath.com","firstname":"Andrew"} 1563484886097
+
+ERROR no such file or directory de 1563484895131
+
+ERROR no such file or directory de 1563485019813
+
+ERROR no such file or directory de 1563485044314
+
+{"firstname":"Devon","lastname":"Marantz","glasses":"sometimes"} 1563485156319
+
+{"firstname":"Devon","lastname":"Marantz","glasses":"sometimes"} 1563485195129
+
+ERROR no such file or directory dev.js 1563485198268
+
+ERROR no such file or directory dev.js 1563485557742
+
+ERROR no such file or directory  1563485562125
+
+ERROR no such file or directory andrewwww.json 1563485589271
+
+undefined 1563485605237
+
+ERROR no such file or directory  1563485635514
+
+Andrew 1563485674196
+
+Andrew 1563485695936
+
+devon.json: created 1563486721032
+
+devon.json: created 1563486798817
+
+devon.json: created 1563486810113
+
+devon.json: created 1563486843386
+
+devon.json: created 1563486881398
+
+devon.json: created 1563486962931
+
+devon.json: created 1563487054505
+
+ERROR file or directory already exists: devon.json 1563487056746
+
+devon.json: created 1563487129967
+
+{"andrew":{"lastname":"Maney","email":"amaney@talentpath.com"},"dev":{"firstname":"Devon","lastname":"Marantz","glasses":"sometimes"},"post":{"title":"Async/Await lesson","description":"How to write asynchronous JavaScript","date":"July 15, 2019"},"scott":{"firstname":"Scott","lastname":"Roberts","email":"sroberts@talentpath.com","username":"Scoot"}} 1563487514372
+
+ERROR no such file or directory undefined or undefined 1563488492636
+
+[firstname,lastname,glasses,email] 1563488508089
+
+[firstname,lastname,glasses,email] 1563488516749
+
+[firstname,lastname,email,username] 1563488584631
+
+[firstname,lastname,email,username] 1563488590597
+
+[firstname,lastname,email,username] 1563488602320
+
+[firstname,lastname,email,username] 1563488604702
+
+[firstname,lastname,glasses,email] 1563488632922
+
+[firstname,lastname,glasses,email] 1563488653063

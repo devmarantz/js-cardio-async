@@ -16,8 +16,15 @@ ex after running delete('user.json'):
 Errors should also be logged (preferably in a human-readable format)
 */
 
-function log(value) {
-  return fs.appendFile('log.txt', `\n${value} ${Date.now()}\n`);
+/**
+ * logs action
+ * @param {string} file
+ * @param {Error} [err]
+ */
+async function log(value, err) {
+  await fs.appendFile('log.txt', `\n${value} ${Date.now()}\n`);
+  // Pass along (throw) error if it exists
+  if (err) throw err;
 }
 
 /**
@@ -36,9 +43,28 @@ async function get(file, key) {
     const value = parsed[key];
     // 5. append the log file with the above value
     if (!value) return log(`ERROR ${key} invalid on ${file}`);
-    return log(value);
+    log(value);
+    return value;
   } catch (err) {
-    return log(`ERROR no such file or directory ${file}`);
+    return log(`ERROR no such file or directory ${file}`, err);
+  }
+}
+
+/**
+ * Logs the value of object[key]
+ * @param {string} file
+ * @param {string} key
+ */
+async function getFile(file) {
+  try {
+    // 1. Read File
+    // 2. Handle Promise → Data
+    const data = await fs.readFile(`./database/${file}`, 'utf-8');
+    // 3. Parse and return data from string → JSON
+    log(data);
+    return data;
+  } catch (err) {
+    return log(`ERROR no such file or directory ${file}`, err);
   }
 }
 
@@ -79,9 +105,9 @@ function set(file, key, value) {
         parsed[key] = value;
         const newObj = JSON.stringify(parsed);
         fs.writeFile(`./database/${file}`, newObj);
-        return log('set', file, value);
+        return log(value);
       })
-      .catch(err => log(`ERROR no such file or directory ${file}`))
+      .catch(err => log(`ERROR no such file or directory ${file}`, err))
   );
 }
 
@@ -101,9 +127,11 @@ async function remove(file, key) {
     delete parsed[key];
     // 5. Write file with new value
     await fs.writeFile(`./database/${file}`, JSON.stringify(parsed), 'utf-8');
-    return console.log(parsed);
+
+    const newData = await fs.readFile(`./database/${file}`, 'utf-8');
+    return newData;
   } catch (err) {
-    return log(`ERROR no such file or directory ${file}`);
+    return log(`ERROR no such file or directory ${file}`, err);
   }
 }
 
@@ -116,7 +144,7 @@ function deleteFile(file) {
   try {
     return fs.unlink(`./database/${file}`);
   } catch (err) {
-    return log(`ERROR no such file or directory ${file}`);
+    return log(`ERROR no such file or directory ${file}`, err);
   }
 }
 
@@ -144,13 +172,12 @@ function deleteFile(file) {
 //     .then(() => log(`Successfully created '${file}'`));
 // }
 // ------------------ASYNC With Access-------------------
-async function createFile(file) {
+async function createFile(file, content) {
   try {
     await fs.access(`./database/${file}`);
     return log(`ERROR file or directory already exists: ${file}`);
   } catch {
-    const emptyObject = {};
-    await fs.writeFile(`./database/${file}`, emptyObject);
+    await fs.writeFile(`./database/${file}`, JSON.stringify(content));
     return log(`${file}: created`);
   }
 }
@@ -203,9 +230,10 @@ async function mergeData() {
       const trimmedFileName = file.slice(0, file.indexOf('.'));
       megaObj[trimmedFileName] = JSON.parse(await fs.readFile(`./database/${file}`, 'utf8'));
     }
-    return log(JSON.stringify(megaObj));
+    log(JSON.stringify(megaObj));
+    return JSON.stringify(megaObj);
   } catch (err) {
-    return log(`ERROR ${err}`);
+    return log(`ERROR ${err}`, err);
   }
 }
 
@@ -218,16 +246,21 @@ async function mergeData() {
  *  // ['firstname', 'lastname', 'email', 'username']
  */
 async function union(fileA, fileB) {
-  const props = [];
-  const dataA = await fs.readFile(`./database/${fileA}`, 'utf-8');
-  const dataB = await fs.readFile(`./database/${fileB}`, 'utf-8');
-  const parsedA = JSON.parse(dataA);
-  const parsedB = JSON.parse(dataB);
-  Object.keys(parsedA).forEach(key => props.push(key));
-  Object.keys(parsedB).forEach(key => {
-    if (!props.includes(key)) props.push(key);
-  });
-  return log(`[${props}]`);
+  try {
+    const props = [];
+    const dataA = await fs.readFile(`./database/${fileA}`, 'utf-8');
+    const dataB = await fs.readFile(`./database/${fileB}`, 'utf-8');
+    const parsedA = JSON.parse(dataA);
+    const parsedB = JSON.parse(dataB);
+    Object.keys(parsedA).forEach(key => props.push(key));
+    Object.keys(parsedB).forEach(key => {
+      if (!props.includes(key)) props.push(key);
+    });
+    log(`[${props}]`);
+    return JSON.stringify(props);
+  } catch (err) {
+    return log(`ERROR no such file or directory ${fileA} or ${fileB}`, err);
+  }
 }
 
 /**
@@ -239,18 +272,23 @@ async function union(fileA, fileB) {
  *    // ['firstname', 'lastname', 'email']
  */
 async function intersect(fileA, fileB) {
-  const props = [];
-  const dataA = await fs.readFile(`./database/${fileA}`, 'utf-8');
-  const dataB = await fs.readFile(`./database/${fileB}`, 'utf-8');
-  const parsedA = JSON.parse(dataA);
-  const parsedB = JSON.parse(dataB);
-  Object.keys(parsedA).forEach(key => {
-    if (Object.keys(parsedB).includes(key)) props.push(key);
-  });
-  Object.keys(parsedB).forEach(key => {
-    if (!props.includes(key)) props.push(key);
-  });
-  return log(`[${props}]`);
+  try {
+    const props = [];
+    const dataA = await fs.readFile(`./database/${fileA}`, 'utf-8');
+    const dataB = await fs.readFile(`./database/${fileB}`, 'utf-8');
+    const parsedA = JSON.parse(dataA);
+    const parsedB = JSON.parse(dataB);
+    Object.keys(parsedA).forEach(key => {
+      if (Object.keys(parsedB).includes(key)) props.push(key);
+    });
+    Object.keys(parsedB).forEach(key => {
+      if (!props.includes(key)) props.push(key);
+    });
+    log(`[${props}]`);
+    return JSON.stringify(props);
+  } catch (err) {
+    return log(`ERROR no such file or directory ${fileA} or ${fileB}`, err);
+  }
 }
 
 /**
@@ -262,18 +300,23 @@ async function intersect(fileA, fileB) {
  *    // ['username']
  */
 async function difference(fileA, fileB) {
-  const props = [];
-  const dataA = await fs.readFile(`./database/${fileA}`, 'utf-8');
-  const dataB = await fs.readFile(`./database/${fileB}`, 'utf-8');
-  const parsedA = JSON.parse(dataA);
-  const parsedB = JSON.parse(dataB);
-  Object.keys(parsedA).forEach(key => {
-    if (!Object.keys(parsedB).includes(key)) props.push(key);
-  });
-  Object.keys(parsedB).forEach(key => {
-    if (!Object.keys(parsedA).includes(key)) props.push(key);
-  });
-  return log(`[${props}]`);
+  try {
+    const props = [];
+    const dataA = await fs.readFile(`./database/${fileA}`, 'utf-8');
+    const dataB = await fs.readFile(`./database/${fileB}`, 'utf-8');
+    const parsedA = JSON.parse(dataA);
+    const parsedB = JSON.parse(dataB);
+    Object.keys(parsedA).forEach(key => {
+      if (!Object.keys(parsedB).includes(key)) props.push(key);
+    });
+    Object.keys(parsedB).forEach(key => {
+      if (!Object.keys(parsedA).includes(key)) props.push(key);
+    });
+    log(`[${props}]`);
+    return JSON.stringify(props);
+  } catch (err) {
+    return log(`ERROR no such file or directory ${fileA} or ${fileB}`, err);
+  }
 }
 
 function reset() {
@@ -308,6 +351,7 @@ function reset() {
 
 module.exports = {
   get,
+  getFile,
   set,
   remove,
   deleteFile,
