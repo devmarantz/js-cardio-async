@@ -12,6 +12,8 @@ const {
   deleteFile,
   getMergeData,
   getUnion,
+  getDifference,
+  getIntersect,
 } = require('./controller'); //import our controller
 
 const handleRoutes = (req, res) => {
@@ -59,26 +61,12 @@ const handleRoutes = (req, res) => {
 
   // INTERSECT
   if (pathname === '/intersect' && req.method === 'GET') {
-    return db
-      .intersect(query.fileA, query.fileB)
-      .then(() => {
-        res.end('intersection established');
-      })
-      .catch(err => {
-        // TODO:
-      });
+    return getIntersect(req, res, query);
   }
 
   // DIFFERENCE
   if (pathname === '/difference' && req.method === 'GET') {
-    return db
-      .difference(query.fileA, query.fileB)
-      .then(() => {
-        res.end('difference established');
-      })
-      .catch(err => {
-        // TODO:
-      });
+    return getDifference(req, res, query);
   }
 
   if (pathname.startsWith('/write') && req.method === 'POST') {

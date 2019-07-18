@@ -272,18 +272,23 @@ async function union(fileA, fileB) {
  *    // ['firstname', 'lastname', 'email']
  */
 async function intersect(fileA, fileB) {
-  const props = [];
-  const dataA = await fs.readFile(`./database/${fileA}`, 'utf-8');
-  const dataB = await fs.readFile(`./database/${fileB}`, 'utf-8');
-  const parsedA = JSON.parse(dataA);
-  const parsedB = JSON.parse(dataB);
-  Object.keys(parsedA).forEach(key => {
-    if (Object.keys(parsedB).includes(key)) props.push(key);
-  });
-  Object.keys(parsedB).forEach(key => {
-    if (!props.includes(key)) props.push(key);
-  });
-  return log(`[${props}]`);
+  try {
+    const props = [];
+    const dataA = await fs.readFile(`./database/${fileA}`, 'utf-8');
+    const dataB = await fs.readFile(`./database/${fileB}`, 'utf-8');
+    const parsedA = JSON.parse(dataA);
+    const parsedB = JSON.parse(dataB);
+    Object.keys(parsedA).forEach(key => {
+      if (Object.keys(parsedB).includes(key)) props.push(key);
+    });
+    Object.keys(parsedB).forEach(key => {
+      if (!props.includes(key)) props.push(key);
+    });
+    log(`[${props}]`);
+    return JSON.stringify(props);
+  } catch (err) {
+    return log(`ERROR no such file or directory ${fileA} or ${fileB}`, err);
+  }
 }
 
 /**
@@ -295,18 +300,23 @@ async function intersect(fileA, fileB) {
  *    // ['username']
  */
 async function difference(fileA, fileB) {
-  const props = [];
-  const dataA = await fs.readFile(`./database/${fileA}`, 'utf-8');
-  const dataB = await fs.readFile(`./database/${fileB}`, 'utf-8');
-  const parsedA = JSON.parse(dataA);
-  const parsedB = JSON.parse(dataB);
-  Object.keys(parsedA).forEach(key => {
-    if (!Object.keys(parsedB).includes(key)) props.push(key);
-  });
-  Object.keys(parsedB).forEach(key => {
-    if (!Object.keys(parsedA).includes(key)) props.push(key);
-  });
-  return log(`[${props}]`);
+  try {
+    const props = [];
+    const dataA = await fs.readFile(`./database/${fileA}`, 'utf-8');
+    const dataB = await fs.readFile(`./database/${fileB}`, 'utf-8');
+    const parsedA = JSON.parse(dataA);
+    const parsedB = JSON.parse(dataB);
+    Object.keys(parsedA).forEach(key => {
+      if (!Object.keys(parsedB).includes(key)) props.push(key);
+    });
+    Object.keys(parsedB).forEach(key => {
+      if (!Object.keys(parsedA).includes(key)) props.push(key);
+    });
+    log(`[${props}]`);
+    return JSON.stringify(props);
+  } catch (err) {
+    return log(`ERROR no such file or directory ${fileA} or ${fileB}`, err);
+  }
 }
 
 function reset() {
