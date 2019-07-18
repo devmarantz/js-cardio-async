@@ -127,9 +127,11 @@ async function remove(file, key) {
     delete parsed[key];
     // 5. Write file with new value
     await fs.writeFile(`./database/${file}`, JSON.stringify(parsed), 'utf-8');
-    return console.log(parsed);
+
+    const newData = await fs.readFile(`./database/${file}`, 'utf-8');
+    return newData;
   } catch (err) {
-    return log(`ERROR no such file or directory ${file}`);
+    return log(`ERROR no such file or directory ${file}`, err);
   }
 }
 

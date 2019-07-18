@@ -74,6 +74,26 @@ exports.get = (req, res, { file, key }) => {
     });
 };
 
+exports.deleteRemove = (req, res, { file, key }) => {
+  // check if the file, key, and value are all defined
+  if (!file || !key) {
+    res.writeHead(400);
+    res.end('File and Key queries are required');
+  }
+  // fire off the db set method
+  db.remove(file, key)
+    .then(value => {
+      res.writeHead(202);
+      res.end(value);
+    })
+    .catch(err => {
+      res.writeHead(400, {
+        'Content-Type': 'text/html',
+      });
+      res.end(err.message);
+    });
+};
+
 exports.postWrite = (req, res, pathname) => {
   // 1. Get the body data from the request
   const data = [];
