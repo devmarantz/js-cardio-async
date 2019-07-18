@@ -47,12 +47,32 @@ exports.patchSet = (req, res, { file, key, value }) => {
       res.end('Value Set');
     })
     .catch(err => {
-      res.writeHead(400),
-        {
-          'Content-Type': 'text/html',
-        };
+      res.writeHead(400, {
+        'Content-Type': 'text/html',
+      });
       res.end(err.message);
     });
+};
+
+exports.postWrite = (req, res) => {
+  // 1. Get the body data from the request
+  const data = [];
+  // event emitted when the request receives a chunk of data
+  req.on('data', chunk => data.push(chunk));
+  // event emitted when the request has received all of the data
+  req.on('end', () => {
+    // parse our data array
+    const body = JSON.parse(data);
+    res.end(JSON.stringify(body));
+  });
+  // return db
+  //   .createFile(query.file)
+  //   .then(() => {
+  //     res.end('file created');
+  //   })
+  //   .catch(err => {
+  //     // TODO:
+  //   });
 };
 
 // //Alternate way to export

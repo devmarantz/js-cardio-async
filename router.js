@@ -1,6 +1,6 @@
 const url = require('url'); // import URL module
 const db = require('./db'); // import our database
-const { getHome, getStatus, patchSet, notFound } = require('./controller'); //import our controller
+const { getHome, getStatus, patchSet, notFound, postWrite } = require('./controller'); //import our controller
 
 const handleRoutes = (req, res) => {
   const { pathname, query } = url.parse(req.url, true);
@@ -14,9 +14,8 @@ const handleRoutes = (req, res) => {
     return getStatus(req, res);
   }
 
-  // parse the url to an object
-
   // SET
+  // parse the url to an object
   if (pathname === '/set' && req.method === 'PATCH') {
     return patchSet(req, res, query);
   }
@@ -103,6 +102,10 @@ const handleRoutes = (req, res) => {
       .catch(err => {
         // TODO:
       });
+  }
+
+  if (pathname.startsWith('/write') && req.method === 'POST') {
+    return postWrite(req, res);
   }
 
   // Handle any routes that are not found
