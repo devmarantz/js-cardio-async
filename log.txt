@@ -168,3 +168,45 @@ ERROR no such file or directory andrewwww.json 1563474057027
 ERROR no such file or directory andrewwww.json 1563474088419
 
 ERROR no such file or directory andrewwww.json 1563474213764
+
+dev.json: created 1563477192857
+
+ERROR file or directory already exists: dev.json 1563477229433
+
+dev.json: created 1563477258096
+
+ERROR file or directory already exists: dev.json 1563477427221
+
+dev.json: created 1563477439998
+
+[object Object] 1563483879925
+
+{"firstname":"Devon","lastname":"Marantz","glasses":"sometimes"} 1563483889700
+
+{"firstname":"Devon","lastname":"Marantz","glasses":"sometimes"} 1563484543029
+
+{"firstname":"Devon","lastname":"Marantz","glasses":"sometimes"} 1563484564136
+
+[object Object] 1563484608980
+
+[object Object] 1563484645140
+
+[object Object] 1563484753098
+
+{"firstname":"Devon","lastname":"Marantz","glasses":"sometimes"} 1563484857499
+
+{"lastname":"Maney","email":"amaney@talentpath.com","firstname":"Andrew"} 1563484865781
+
+{"lastname":"Maney","email":"amaney@talentpath.com","firstname":"Andrew"} 1563484886097
+
+ERROR no such file or directory de 1563484895131
+
+ERROR no such file or directory de 1563485019813
+
+ERROR no such file or directory de 1563485044314
+
+{"firstname":"Devon","lastname":"Marantz","glasses":"sometimes"} 1563485156319
+
+{"firstname":"Devon","lastname":"Marantz","glasses":"sometimes"} 1563485195129
+
+ERROR no such file or directory dev.js 1563485198268

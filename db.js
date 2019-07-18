@@ -50,6 +50,24 @@ async function get(file, key) {
 }
 
 /**
+ * Logs the value of object[key]
+ * @param {string} file
+ * @param {string} key
+ */
+async function getFile(file) {
+  try {
+    // 1. Read File
+    // 2. Handle Promise → Data
+    const data = await fs.readFile(`./database/${file}`, 'utf-8');
+    // 3. Parse and return data from string → JSON
+    log(data);
+    return data;
+  } catch (err) {
+    return log(`ERROR no such file or directory ${file}`, err);
+  }
+}
+
+/**
  * Sets the value of object[key] and rewrites object to file
  * @param {string} file
  * @param {string} key
@@ -151,13 +169,12 @@ function deleteFile(file) {
 //     .then(() => log(`Successfully created '${file}'`));
 // }
 // ------------------ASYNC With Access-------------------
-async function createFile(file) {
+async function createFile(file, content) {
   try {
     await fs.access(`./database/${file}`);
     return log(`ERROR file or directory already exists: ${file}`);
   } catch {
-    const emptyObject = {};
-    await fs.writeFile(`./database/${file}`, emptyObject);
+    await fs.writeFile(`./database/${file}`, JSON.stringify(content));
     return log(`${file}: created`);
   }
 }
@@ -315,6 +332,7 @@ function reset() {
 
 module.exports = {
   get,
+  getFile,
   set,
   remove,
   deleteFile,

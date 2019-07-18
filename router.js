@@ -1,6 +1,6 @@
 const url = require('url'); // import URL module
 const db = require('./db'); // import our database
-const { getHome, getStatus, patchSet, notFound, postWrite } = require('./controller'); //import our controller
+const { getHome, getStatus, patchSet, notFound, postWrite, getFile } = require('./controller'); //import our controller
 
 const handleRoutes = (req, res) => {
   const { pathname, query } = url.parse(req.url, true);
@@ -105,7 +105,11 @@ const handleRoutes = (req, res) => {
   }
 
   if (pathname.startsWith('/write') && req.method === 'POST') {
-    return postWrite(req, res);
+    return postWrite(req, res, pathname);
+  }
+
+  if (pathname.startsWith('/get') && req.method === 'GET') {
+    return getFile(req, res, pathname);
   }
 
   // Handle any routes that are not found

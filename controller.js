@@ -54,25 +54,42 @@ exports.patchSet = (req, res, { file, key, value }) => {
     });
 };
 
-exports.postWrite = (req, res) => {
+exports.postWrite = (req, res, pathname) => {
   // 1. Get the body data from the request
   const data = [];
   // event emitted when the request receives a chunk of data
   req.on('data', chunk => data.push(chunk));
   // event emitted when the request has received all of the data
-  req.on('end', () => {
+  req.on('end', async () => {
     // parse our data array
     const body = JSON.parse(data);
-    res.end(JSON.stringify(body));
+    await db.createFile(pathname.split('/')[2], body);
+    res.writeHead(201, {
+      'Content-Type': 'text/html',
+    });
+    // returns a response
+    res.end('File written');
   });
-  // return db
-  //   .createFile(query.file)
-  //   .then(() => {
-  //     res.end('file created');
-  //   })
-  //   .catch(err => {
-  //     // TODO:
-  //   });
+};
+
+exports.getFile = (req, res, pathname) => {
+  // event emitted when the request has received all of the data
+  // req.on('end', async () => {
+  // parse our data array
+  db.getFile(pathname.split('/')[2])
+    .then(body => {
+      res.writeHead(200, {
+        'Content-Type': 'application/json',
+      });
+      res.end(body);
+    })
+    .catch(err => {
+      res.writeHead(400, {
+        'Content-Type': 'text/html',
+      });
+      res.end(err.message);
+    });
+  // });
 };
 
 // //Alternate way to export
