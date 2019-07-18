@@ -132,6 +132,25 @@ exports.getFile = (req, res, pathname) => {
   // });
 };
 
+exports.deleteFile = (req, res, pathname) => {
+  // event emitted when the request has received all of the data
+  // req.on('end', async () => {
+  // parse our data array
+  const filename = pathname.split('/')[2];
+  db.deleteFile(filename)
+    .then(() => {
+      res.writeHead(204);
+      console.log(`${filename} successfully deleted`);
+      res.end('succesfully deleted');
+    })
+    .catch(err => {
+      res.writeHead(400, {
+        'Content-Type': 'text/html',
+      });
+      res.end(err.message);
+    });
+};
+
 // //Alternate way to export
 // module.exports = {
 //   getHome,

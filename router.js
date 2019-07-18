@@ -1,6 +1,16 @@
 const url = require('url'); // import URL module
 const db = require('./db'); // import our database
-const { getHome, getStatus, patchSet, notFound, postWrite, getFile, get, deleteRemove } = require('./controller'); //import our controller
+const {
+  getHome,
+  getStatus,
+  patchSet,
+  notFound,
+  postWrite,
+  getFile,
+  get,
+  deleteRemove,
+  deleteFile,
+} = require('./controller'); //import our controller
 
 const handleRoutes = (req, res) => {
   const { pathname, query } = url.parse(req.url, true);
@@ -31,15 +41,8 @@ const handleRoutes = (req, res) => {
   }
 
   // DELETEFILE
-  if (pathname === '/deleteFile' && req.method === 'DELETE') {
-    return db
-      .deleteFile(query.file)
-      .then(() => {
-        res.end('file deleted');
-      })
-      .catch(err => {
-        // TODO:
-      });
+  if (pathname.startsWith('/delete') && req.method === 'PATCH') {
+    return deleteFile(req, res, pathname);
   }
 
   // CREATEFILE

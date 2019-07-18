@@ -144,7 +144,7 @@ function deleteFile(file) {
   try {
     return fs.unlink(`./database/${file}`);
   } catch (err) {
-    return log(`ERROR no such file or directory ${file}`);
+    return log(`ERROR no such file or directory ${file}`, err);
   }
 }
 
