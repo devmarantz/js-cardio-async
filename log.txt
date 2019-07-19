@@ -266,3 +266,27 @@ ERROR no such file or directory undefined or undefined 1563488492636
 [firstname,glasses,email] 1563488889321
 
 [lastname,email] 1563488894958
+
+{"andrew":{"lastname":"Maney","email":"amaney@talentpath.com"},"dev":{"firstname":"Devon","lastname":"Marantz","glasses":"sometimes"},"post":{"title":"Async/Await lesson","description":"How to write asynchronous JavaScript","date":"July 15, 2019"},"scott":{"firstname":"Scott","lastname":"Roberts","email":"sroberts@talentpath.com","username":"Scoot"}} 1563559996960
+
+{"firstname":"Devon","lastname":"Marantz","glasses":"sometimes"} 1563560015654
+
+ERROR no such file or directory dev.jsondfdfbd 1563560708300
+
+ERROR no such file or directory de 1563560728489
+
+ERROR no such file or directory  1563560732288
+
+ERROR no such file or directory bfgb 1563560741167
+
+{"lastname":"Maney","email":"amaney@talentpath.com"} 1563561983259
+
+{"firstname":"Devon","lastname":"Marantz","glasses":"sometimes"} 1563561999997
+
+ERROR no such file or directory dev.jsondfbdfgdfg 1563562006024
+
+ERROR no such file or directory dev.jsondfbdfgdfg 1563562282703
+
+{"firstname":"Devon","lastname":"Marantz","glasses":"sometimes"} 1563562290952
+
+ERROR no such file or directory dev.jsonffff 1563562720935

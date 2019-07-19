@@ -198,9 +198,6 @@ exports.getMergeData = (req, res) => {
 
 // Gets a file given a filename
 exports.getFile = (req, res, pathname) => {
-  // event emitted when the request has received all of the data
-  // req.on('end', async () => {
-  // parse our data array
   db.getFile(pathname.split('/')[2])
     .then(body => {
       res.writeHead(200, {
@@ -209,7 +206,7 @@ exports.getFile = (req, res, pathname) => {
       res.end(body);
     })
     .catch(err => {
-      res.writeHead(400, {
+      res.writeHead(404, {
         'Content-Type': 'text/html',
       });
       res.end(err.message);

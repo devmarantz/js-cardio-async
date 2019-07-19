@@ -87,7 +87,7 @@ const handleRoutes = (req, res) => {
 
   // GET FILE
   // Gets a file given the name of a file in the pathname
-  if (pathname.startsWith('/get') && req.method === 'GET') {
+  if (pathname.startsWith('/file') && req.method === 'GET') {
     return getFile(req, res, pathname);
   }
 
