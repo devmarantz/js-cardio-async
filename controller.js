@@ -1,6 +1,7 @@
 const fs = require('fs').promises;
 const db = require('./db'); // import our database
 
+// Returns a 404 page and 404 error
 exports.notFound = async (req, res) => {
   const html = await fs.readFile('404.html');
   // handle any unfound errors
@@ -10,6 +11,7 @@ exports.notFound = async (req, res) => {
   res.end(html);
 };
 
+//
 exports.getHome = (req, res) => {
   // sets the status code and writes the header
   res.writeHead(200, {
@@ -21,10 +23,11 @@ exports.getHome = (req, res) => {
   // res.end();
 };
 
+// Returns the status of the owner
 exports.getStatus = (req, res) => {
   const status = {
     up: true,
-    owner: 'Andrew Maney',
+    owner: 'Devon Marantz',
     timestamp: Date.now(),
   };
   res.writeHead(200, {
@@ -34,6 +37,7 @@ exports.getStatus = (req, res) => {
   res.end(JSON.stringify(status));
 };
 
+// Sets a value to a certain key in a file
 exports.patchSet = (req, res, { file, key, value }) => {
   // check if the file, key, and value are all defined
   if (!file || !key || !value) {
@@ -54,6 +58,7 @@ exports.patchSet = (req, res, { file, key, value }) => {
     });
 };
 
+// Gets a value of a key in a file
 exports.get = (req, res, { file, key }) => {
   // check if the file, key, and value are all defined
   if (!file || !key) {
@@ -74,6 +79,7 @@ exports.get = (req, res, { file, key }) => {
     });
 };
 
+// Removes a value of a key in a file
 exports.deleteRemove = (req, res, { file, key }) => {
   // check if the file, key, and value are all defined
   if (!file || !key) {
@@ -154,6 +160,7 @@ exports.getIntersect = (req, res, { fileA, fileB }) => {
     });
 };
 
+// Writes a new file with a filename and body
 exports.postWrite = (req, res, pathname) => {
   // 1. Get the body data from the request
   const data = [];
@@ -172,6 +179,7 @@ exports.postWrite = (req, res, pathname) => {
   });
 };
 
+// Gets all files
 exports.getMergeData = (req, res) => {
   db.mergeData()
     .then(body => {
@@ -188,6 +196,7 @@ exports.getMergeData = (req, res) => {
     });
 };
 
+// Gets a file given a filename
 exports.getFile = (req, res, pathname) => {
   // event emitted when the request has received all of the data
   // req.on('end', async () => {
@@ -207,6 +216,7 @@ exports.getFile = (req, res, pathname) => {
     });
 };
 
+// Deletes a file given a filename
 exports.deleteFile = (req, res, pathname) => {
   // event emitted when the request has received all of the data
   // req.on('end', async () => {
