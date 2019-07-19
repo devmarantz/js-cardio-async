@@ -57,10 +57,7 @@ async function get(file, key) {
  */
 async function getFile(file) {
   try {
-    // 1. Read File
-    // 2. Handle Promise → Data
     const data = await fs.readFile(`./database/${file}`, 'utf-8');
-    // 3. Parse and return data from string → JSON
     log(data);
     return data;
   } catch (err) {
